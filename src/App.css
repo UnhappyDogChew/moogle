@@ -1,38 +1,153 @@
-.App {
+@import-normalize;
+
+/* common styles */
+.hidden {
+  visibility: hidden;
+}
+
+.main {
+}
+
+/* main header styles */
+
+.main-header {
+  box-sizing: border-box;
+  height: 40vh;
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+.main-header::before {
+  content: "";
+  display: block;
+  width: 100%;
+  flex: 1;
+}
+
+.main-header a:any-link {
+  display: block;
+  font-size: 64px;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  margin-block-end: 20px;
+}
+
+.main-container {
+}
+
+/* main searchbar styles */
+
+.main-searchbar {
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+.main-searchbar-top {
+  height: 2em;
+  border: 1px solid #888;
+  border-radius: 1em;
+  padding-inline: 8px;
+  font-size: 16px;
+}
+
+.main-searchbar-top-wrap {
+  display: flex;
+  width: 100%;
+  height: 100%;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.active .main-searchbar-top-wrap {
+  border-bottom: 1px solid #ccc;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.active .main-searchbar-top {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: none;
+}
+
+.main-searchbar-top input {
+  flex: 1;
+  margin-inline: 8px;
+  border: none;
+  font-size: inherit;
+}
+
+.main-searchbar-top input:focus {
+  outline: none;
+}
+
+.main-searchbar-bottom {
+  display: none;
+}
+
+.active .main-searchbar-bottom {
+  display: block;
+  border: 1px solid #888;
+  border-top: none;
+  border-bottom-right-radius: 1em;
+  border-bottom-left-radius: 1em;
+  height: 300px;
+  overflow: scroll;
+}
+
+/* movie item styles */
+
+.movie_item {
+  height: 100px;
+  cursor: pointer;
+  padding-inline: 8px;
+}
+
+.movie_item-wrap {
+  position: relative;
+  height: 100%;
+  border-bottom: 1px solid #ccc;
+}
+
+.movie_item:hover {
+  background-color: rgb(175, 203, 203);
+}
+
+.movie_item-title {
+  position: absolute;
+  top: 10px;
+  left: 70px;
+  margin-block: 0;
+  font-size: 18px;
+}
+
+.movie_item-year {
+  font-size: 14px;
+  margin-inline: 4px;
+  color: #555;
+}
+
+.movie_item-thumnail {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  height: 80px;
+}
+
+.movie_item-rating {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  margin-block: 0;
+}
+
+.movie_item-overview {
+  position: absolute;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  left: 70px;
+  bottom: 10px;
+  margin-block: 0;
+  width: calc(100% - 80px);
+  overflow: hidden;
 }
