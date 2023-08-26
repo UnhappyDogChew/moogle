@@ -62,7 +62,7 @@ export const Searchbar = () => {
       <div className="main-searchbar-top">
         <div className="main-searchbar-top-wrap">
           <label for="search">
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <i className="fa-solid fa-magnifying-glass"></i>
           </label>
           <input
             type="text"
@@ -80,7 +80,7 @@ export const Searchbar = () => {
             className={"btn-icon-hidden" + (query ? "" : " hidden")}
             onClick={clearBtnOnClick}
           >
-            <i class="fa-solid fa-x"></i>
+            <i className="fa-solid fa-x"></i>
           </button>
         </div>
       </div>
