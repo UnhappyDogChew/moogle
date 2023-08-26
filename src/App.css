@@ -73,18 +73,18 @@
   border-bottom: none;
 }
 
-.main-searchbar-top input {
+.main-searchbar-top-wrap > input {
   flex: 1;
   margin-inline: 8px;
   border: none;
   font-size: inherit;
 }
 
-.main-searchbar-top input:focus {
+.main-searchbar-top-wrap > input:focus {
   outline: none;
 }
 
-.main-searchbar-top button {
+.main-searchbar-top-wrap > button {
   border: none;
   background: none;
   cursor: pointer;
