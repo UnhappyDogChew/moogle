@@ -13,7 +13,19 @@ export const Searchbar = () => {
       return;
     }
     setIsLoading(true);
-    axios.get("http://localhost:5000/search").then((res) => {
+    axios({
+      method: "get",
+      url: "/search/movie",
+      baseURL: window.env.API_URL,
+      headers: {
+        Authorization: `Bearer ${window.env.API_TOKEN}`,
+      },
+      params: {
+        query: query,
+        include_adult: false,
+        language: "ko-KR",
+      },
+    }).then((res) => {
       setResults(res.data.results);
       setIsLoading(false);
     });
