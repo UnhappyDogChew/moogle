@@ -1,9 +1,6 @@
-import { useState } from "react";
 import { Searchbar } from "../components/Searchbar";
 
 export const MainPage = () => {
-  const [name, setName] = useState(0);
-
   return (
     <>
       <div className="main">
@@ -15,7 +12,12 @@ export const MainPage = () => {
         <main className="main-container">
           <Searchbar />
         </main>
-        <footer className="main-footer"></footer>
+        <footer className="main-footer">
+          powered by{" "}
+          <a href="https://developer.themoviedb.org/">
+            https://developer.themoviedb.org/
+          </a>
+        </footer>
       </div>
     </>
   );
