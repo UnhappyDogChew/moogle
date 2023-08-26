@@ -84,6 +84,12 @@
   outline: none;
 }
 
+.main-searchbar-top button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
 .main-searchbar-bottom {
   display: none;
 }

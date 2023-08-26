@@ -61,7 +61,9 @@ export const Searchbar = () => {
     <div className={"main-searchbar" + (isFocused && query ? " active" : "")}>
       <div className="main-searchbar-top">
         <div className="main-searchbar-top-wrap">
-          <label for="search">검색</label>
+          <label for="search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </label>
           <input
             type="text"
             id="search"
@@ -78,7 +80,7 @@ export const Searchbar = () => {
             className={"btn-icon-hidden" + (query ? "" : " hidden")}
             onClick={clearBtnOnClick}
           >
-            취소
+            <i class="fa-solid fa-x"></i>
           </button>
         </div>
       </div>
