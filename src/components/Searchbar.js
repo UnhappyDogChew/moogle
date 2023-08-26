@@ -19,22 +19,34 @@ export const Searchbar = () => {
     });
   }, [query]);
 
+  const searchbarOnFocus = () => {
+    setIsFocused(true);
+  };
+
+  const searchbarOnBlur = () => {
+    window.addEventListener(
+      "click",
+      () => {
+        setIsFocused(false);
+      },
+      { once: true }
+    );
+  };
+
+  const searchbarOnChange = (e) => {
+    setQuery(e.target.value);
+  };
+
+  const clearBtnOnClick = () => {
+    setQuery("");
+  };
+
+  const movieItemOnClick = (title) => {
+    setQuery(title);
+  };
+
   return (
-    <div
-      className={"main-searchbar" + (isFocused && query ? " active" : "")}
-      onFocus={() => {
-        setIsFocused(true);
-      }}
-      onBlur={() => {
-        window.addEventListener(
-          "click",
-          () => {
-            setIsFocused(false);
-          },
-          { once: true }
-        );
-      }}
-    >
+    <div className={"main-searchbar" + (isFocused && query ? " active" : "")}>
       <div className="main-searchbar-top">
         <div className="main-searchbar-top-wrap">
           <label for="search">검색</label>
@@ -44,13 +56,15 @@ export const Searchbar = () => {
             className="icon-search"
             name="query"
             value={query}
-            onChange={(e) => {
-              setQuery(e.target.value);
-            }}
+            autoComplete="off"
+            onChange={searchbarOnChange}
+            onFocus={searchbarOnFocus}
+            onBlur={searchbarOnBlur}
           />
           <button
             type="button"
             className={"btn-icon-hidden" + (query ? "" : " hidden")}
+            onClick={clearBtnOnClick}
           >
             취소
           </button>
@@ -58,12 +72,7 @@ export const Searchbar = () => {
       </div>
       <div className="main-searchbar-bottom">
         {results.map((movie) => (
-          <MovieItem
-            movie={movie}
-            onClick={(title) => {
-              setQuery(title);
-            }}
-          />
+          <MovieItem movie={movie} onClick={movieItemOnClick} />
         ))}
       </div>
     </div>
