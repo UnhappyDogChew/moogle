@@ -1,5 +1,10 @@
-export const Searchbar = ({ onChange, onEnter }) => {
+import { useEffect, useState } from "react";
+
+export const Searchbar = ({ initialQuery, onChange, onEnter }) => {
+  const [query, setQuery] = useState(initialQuery);
+
   const queryOnChange = (e) => {
+    setQuery(e.target.value);
     onChange(e.target.value);
   };
 
@@ -17,7 +22,8 @@ export const Searchbar = ({ onChange, onEnter }) => {
         autoComplete="off"
         onChange={queryOnChange}
         onKeyDown={queryOnKeyDown}
-      ></input>
+        value={query}
+      />
       <button type="button">
         <i className="fa-solid fa-x"></i>
       </button>

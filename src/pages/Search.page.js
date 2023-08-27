@@ -5,18 +5,19 @@ import { useEffect, useRef, useState } from "react";
 import { getMovies, moveToSearchResult, parseSearch } from "../utils";
 
 export const SearchPage = () => {
+  const params = parseSearch(window.location.search);
+
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [totalResults, setTotalResults] = useState(0);
   const [results, setResults] = useState([]);
 
-  const queryRef = useRef("");
-  const languageRef = useRef("ko-KR");
-  const includeAdultRef = useRef(false);
-  const yearRef = useRef("");
+  const queryRef = useRef(params.query);
+  const languageRef = useRef(params.language);
+  const includeAdultRef = useRef(params.includeAdult);
+  const yearRef = useRef(params.yearRef);
 
   useEffect(() => {
-    const params = parseSearch(window.location.search);
     getMovies(
       params,
       (res) => {
@@ -79,7 +80,11 @@ export const SearchPage = () => {
                 🎬oogle
               </a>
             </h1>
-            <Searchbar onChange={onQueryChange} onEnter={onEnter} />
+            <Searchbar
+              initialQuery={params.query}
+              onChange={onQueryChange}
+              onEnter={onEnter}
+            />
           </div>
           <div className="search-header-bottom">
             <SearchOptionBar
