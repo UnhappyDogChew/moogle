@@ -31,6 +31,10 @@ export const SearchPage = () => {
     );
   }, []);
 
+  const makeMovePageURL = (page) =>
+    window.location.pathname +
+    window.location.search.replace(/page=\d+$/, `page=${page + 1}`);
+
   const onQueryChange = (query) => {
     queryRef.current = query;
   };
@@ -50,8 +54,17 @@ export const SearchPage = () => {
   const onEnter = () => {
     const url =
       `/search?query=${queryRef.current}&language=${languageRef.current}&include_adult=${includeAdultRef.current}` +
-      (yearRef.current ? `&year=${yearRef.current}` : "");
+      (yearRef.current ? `&year=${yearRef.current}` : "") +
+      `&page=1`;
     window.location.href = url;
+  };
+
+  const onPrevBtnClick = () => {
+    window.location.href = makeMovePageURL(page - 1);
+  };
+
+  const onNextBtnClick = () => {
+    window.location.href = makeMovePageURL(page + 1);
   };
 
   return (
@@ -77,6 +90,9 @@ export const SearchPage = () => {
       </header>
       <main className="search-container">
         <div className="search-container-wrap padding">
+          <section className="search-result-count">
+            {totalResults}편의 검색 결과
+          </section>
           <ol className="search-results">
             {results.map((movie) => (
               <li>
@@ -88,23 +104,33 @@ export const SearchPage = () => {
       </main>
       <footer className="search-footer">
         <nav className="search-nav-page">
-          <button type="button" className="search-nav-prev-btn">
-            <i className="fa-solid fa-chevron-left"></i>
-          </button>
+          {page > 1 ? (
+            <button
+              type="button"
+              className="search-nav-prev-btn"
+              onClick={onPrevBtnClick}
+            >
+              <i className="fa-solid fa-chevron-left"></i>
+            </button>
+          ) : null}
           <ol>
-            <li>
-              <a href="/search?page=1">1</a>
-            </li>
-            <li>
-              <a href="/search?page=1">2</a>
-            </li>
-            <li>
-              <a href="/search?page=1">3</a>
-            </li>
+            {new Array(totalPages > 20 ? 20 : totalPages)
+              .fill(0)
+              .map((_, i) => (
+                <li>
+                  <a href={makeMovePageURL(i + 1)}>{i + 1}</a>
+                </li>
+              ))}
           </ol>
-          <button type="button" className="search-nav-next-btn">
-            <i className="fa-solid fa-chevron-right"></i>
-          </button>
+          {page < totalPages ? (
+            <button
+              type="button"
+              className="search-nav-next-btn"
+              onClick={onNextBtnClick}
+            >
+              <i className="fa-solid fa-chevron-right"></i>
+            </button>
+          ) : null}
         </nav>
       </footer>
     </div>
