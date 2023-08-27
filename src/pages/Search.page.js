@@ -1,8 +1,23 @@
 import { SearchResultItem } from "../components/search/SearchResultItem";
 import { Searchbar } from "../components/search/Searchbar";
 import { SearchOptionBar } from "../components/search/SearchOptionBar";
+import { useEffect } from "react";
+import { getMovies, parseSearch } from "../utils";
 
 export const SearchPage = () => {
+  useEffect(() => {
+    const params = parseSearch(window.location.search);
+    getMovies(
+      params,
+      (res) => {
+        console.log(res.data);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  });
+
   return (
     <div className="search">
       <header className="search-header">
