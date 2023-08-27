@@ -1,22 +1,58 @@
 import { SearchResultItem } from "../components/search/SearchResultItem";
 import { Searchbar } from "../components/search/Searchbar";
 import { SearchOptionBar } from "../components/search/SearchOptionBar";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getMovies, parseSearch } from "../utils";
 
 export const SearchPage = () => {
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalResults, setTotalResults] = useState(0);
+  const [results, setResults] = useState([]);
+
+  const queryRef = useRef("");
+  const languageRef = useRef("ko-KR");
+  const includeAdultRef = useRef(false);
+  const yearRef = useRef("");
+
   useEffect(() => {
     const params = parseSearch(window.location.search);
     getMovies(
       params,
       (res) => {
-        console.log(res.data);
+        setPage(res.data.page);
+        setTotalPages(res.data.total_pages);
+        setTotalResults(res.data.total_results);
+        setResults(res.data.results);
       },
       (err) => {
         console.log(err);
       }
     );
-  });
+  }, []);
+
+  const onQueryChange = (query) => {
+    queryRef.current = query;
+  };
+
+  const onLanguageChange = (language) => {
+    languageRef.current = language;
+  };
+
+  const onIncludeAdultChange = (includeAdult) => {
+    includeAdultRef.current = includeAdult;
+  };
+
+  const onMonthChange = (month) => {
+    yearRef.current = month.split("-")[0];
+  };
+
+  const onEnter = () => {
+    const url =
+      `/search?query=${queryRef.current}&language=${languageRef.current}&include_adult=${includeAdultRef.current}` +
+      (yearRef.current ? `&year=${yearRef.current}` : "");
+    window.location.href = url;
+  };
 
   return (
     <div className="search">
@@ -28,10 +64,14 @@ export const SearchPage = () => {
                 🎬oogle
               </a>
             </h1>
-            <Searchbar />
+            <Searchbar onChange={onQueryChange} onEnter={onEnter} />
           </div>
           <div className="search-header-bottom">
-            <SearchOptionBar />
+            <SearchOptionBar
+              onLanguageChange={onLanguageChange}
+              onIncludeAdultChange={onIncludeAdultChange}
+              onMonthChange={onMonthChange}
+            />
           </div>
         </div>
       </header>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { MovieItem } from "./MovieItem";
+import { getMovies } from "../../utils";
 
 export const Searchbar = () => {
   const [query, setQuery] = useState("");
@@ -13,22 +13,20 @@ export const Searchbar = () => {
       return;
     }
     setIsLoading(true);
-    axios({
-      method: "get",
-      url: "/search/movie",
-      baseURL: window.env.API_URL,
-      headers: {
-        Authorization: `Bearer ${window.env.API_TOKEN}`,
-      },
-      params: {
+    getMovies(
+      {
         query: query,
         include_adult: false,
         language: "ko-KR",
       },
-    }).then((res) => {
-      setResults(res.data.results);
-      setIsLoading(false);
-    });
+      (res) => {
+        setResults(res.data.results);
+        setIsLoading(false);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }, [query]);
 
   const searchbarOnFocus = () => {
