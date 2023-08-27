@@ -101,8 +101,8 @@ export const SearchPage = () => {
             {totalResults}편의 검색 결과
           </section>
           <ol className="search-results">
-            {results.map((movie) => (
-              <li>
+            {results.map((movie, i) => (
+              <li key={`result-${i}`}>
                 <SearchResultItem movie={movie} />
               </li>
             ))}
@@ -124,7 +124,7 @@ export const SearchPage = () => {
             {new Array(totalPages > 20 ? 20 : totalPages)
               .fill(0)
               .map((_, i) => (
-                <li>
+                <li key={`page-${i}`}>
                   <a href={makeMovePageURL(i + 1)}>{i + 1}</a>
                 </li>
               ))}
