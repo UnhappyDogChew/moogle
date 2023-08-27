@@ -78,9 +78,11 @@ export const SearchPage = () => {
       <main className="search-container">
         <div className="search-container-wrap padding">
           <ol className="search-results">
-            <li>
-              <SearchResultItem />
-            </li>
+            {results.map((movie) => (
+              <li>
+                <SearchResultItem movie={movie} />
+              </li>
+            ))}
           </ol>
         </div>
       </main>
