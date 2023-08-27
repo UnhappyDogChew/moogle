@@ -13,20 +13,23 @@ export const Searchbar = () => {
       return;
     }
     setIsLoading(true);
-    getMovies(
-      {
-        query: query,
-        include_adult: false,
-        language: "ko-KR",
-      },
-      (res) => {
-        setResults(res.data.results);
-        setIsLoading(false);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    const debounce = setTimeout(() => {
+      getMovies(
+        {
+          query: query,
+          include_adult: false,
+          language: "ko-KR",
+        },
+        (res) => {
+          setResults(res.data.results);
+          setIsLoading(false);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    }, 300);
+    return () => clearTimeout(debounce);
   }, [query]);
 
   const searchbarOnFocus = () => {
