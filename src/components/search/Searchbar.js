@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const Searchbar = ({ initialQuery, onChange, onEnter }) => {
   const [query, setQuery] = useState(initialQuery);
@@ -14,6 +14,10 @@ export const Searchbar = ({ initialQuery, onChange, onEnter }) => {
     }
   };
 
+  const onClearBtnClick = () => {
+    setQuery("");
+  };
+
   return (
     <div className="search-searchbar">
       <input
@@ -24,10 +28,14 @@ export const Searchbar = ({ initialQuery, onChange, onEnter }) => {
         onKeyDown={queryOnKeyDown}
         value={query}
       />
-      <button type="button">
+      <button
+        type="button"
+        className={query ? "" : "hidden"}
+        onClick={onClearBtnClick}
+      >
         <i className="fa-solid fa-x"></i>
       </button>
-      <button type="button" name="submit">
+      <button type="button" name="submit" onClick={onEnter}>
         <i className="fa-solid fa-magnifying-glass"></i>
       </button>
     </div>
