@@ -1,4 +1,4 @@
-import { Searchbar } from "../components/Searchbar";
+import { Searchbar } from "../components/main/Searchbar";
 
 export const MainPage = () => {
   return (

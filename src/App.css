@@ -235,17 +235,20 @@
 }
 
 .search-header-bottom {
-  vertical-align: baseline;
   border-bottom: 1px solid #eee;
   padding-block-end: 12px;
 }
 
-.search-header-bottom select,
-.search-header-bottom input {
+.search-option-bar {
+  vertical-align: baseline;
+}
+
+.search-option-bar select,
+.search-option-bar input {
   margin-inline-end: 30px;
 }
 
-.search-header-bottom label {
+.search-option-bar label {
   margin-inline-end: 8px;
 }
 
