@@ -89,6 +89,8 @@ export const Searchbar = () => {
         }
         document.querySelector("#item" + focusIndexRef.current)?.focus();
         break;
+      case "Escape":
+        clearBtnOnClick();
       case "Backspace":
         focusIndexRef.current = 0;
         document.querySelector("#item0")?.focus();
