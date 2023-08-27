@@ -1,12 +1,14 @@
 const POSTER_BASE_URL = "https://www.themoviedb.org/t/p/w1280";
 
-export const MovieItem = ({ movie, onClick }) => {
+export const MovieItem = ({ id, movie, onClick }) => {
   return (
     <div
+      id={id}
       className="movie_item"
       onClick={() => {
         onClick(movie.title);
       }}
+      tabIndex={-1}
     >
       <div className="movie_item-wrap">
         <h2 className="movie_item-title">

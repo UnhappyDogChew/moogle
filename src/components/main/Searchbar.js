@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { MovieItem } from "./MovieItem";
 import { getMovies, moveToSearchResult } from "../../utils";
 
@@ -7,6 +7,8 @@ export const Searchbar = () => {
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isFocused, setIsFocused] = useState(false);
+
+  const focusIndexRef = useRef(0);
 
   useEffect(() => {
     if (!query) {
@@ -41,6 +43,7 @@ export const Searchbar = () => {
       "click",
       () => {
         setIsFocused(false);
+        focusIndexRef.current = 0;
       },
       { once: true }
     );
@@ -62,15 +65,38 @@ export const Searchbar = () => {
   };
 
   const searchbarOnKeyDown = (e) => {
-    if (e.key === "Enter") {
-      moveToSearchResult({
-        query: query,
-      });
+    switch (e.key) {
+      case "Enter":
+        if (focusIndexRef.current === 0) {
+          moveToSearchResult({
+            query: query,
+          });
+        } else {
+          document.querySelector("#item" + focusIndexRef.current)?.click();
+        }
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        if (focusIndexRef.current > 0) {
+          focusIndexRef.current--;
+        }
+        document.querySelector("#item" + focusIndexRef.current)?.focus();
+        break;
+      case "ArrowDown":
+        e.preventDefault();
+        if (focusIndexRef.current < results.length) {
+          focusIndexRef.current++;
+        }
+        document.querySelector("#item" + focusIndexRef.current)?.focus();
+        break;
     }
   };
 
   return (
-    <div className={"main-searchbar" + (isFocused && query ? " active" : "")}>
+    <div
+      className={"main-searchbar" + (isFocused && query ? " active" : "")}
+      onKeyDown={searchbarOnKeyDown}
+    >
       <div className="main-searchbar-top">
         <div className="main-searchbar-top-wrap">
           <label htmlFor="search">
@@ -78,7 +104,7 @@ export const Searchbar = () => {
           </label>
           <input
             type="text"
-            id="search"
+            id="item0"
             className="icon-search"
             name="query"
             value={query}
@@ -86,7 +112,6 @@ export const Searchbar = () => {
             onChange={searchbarOnChange}
             onFocus={searchbarOnFocus}
             onBlur={searchbarOnBlur}
-            onKeyDown={searchbarOnKeyDown}
           />
           <button
             type="button"
@@ -98,8 +123,12 @@ export const Searchbar = () => {
         </div>
       </div>
       <div className="main-searchbar-bottom">
-        {results.map((movie) => (
-          <MovieItem movie={movie} onClick={movieItemOnClick} />
+        {results.map((movie, i) => (
+          <MovieItem
+            id={"item" + (i + 1)}
+            movie={movie}
+            onClick={movieItemOnClick}
+          />
         ))}
       </div>
     </div>

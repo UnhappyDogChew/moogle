@@ -133,8 +133,10 @@
   border-bottom: 1px solid #ccc;
 }
 
-.movie_item:hover {
+.movie_item:hover,
+.movie_item:focus {
   background-color: rgb(175, 203, 203);
+  outline: none;
 }
 
 .movie_item-title {
