@@ -55,6 +55,13 @@ export const Searchbar = () => {
 
   const movieItemOnClick = (title) => {
     setQuery(title);
+    window.location.href = "/search";
+  };
+
+  const searchbarOnKeyDown = (e) => {
+    if (e.key === "Enter") {
+      window.location.href = "/search";
+    }
   };
 
   return (
@@ -74,6 +81,7 @@ export const Searchbar = () => {
             onChange={searchbarOnChange}
             onFocus={searchbarOnFocus}
             onBlur={searchbarOnBlur}
+            onKeyDown={searchbarOnKeyDown}
           />
           <button
             type="button"

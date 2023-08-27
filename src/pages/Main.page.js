@@ -5,9 +5,11 @@ export const MainPage = () => {
     <>
       <div className="main">
         <header className="main-header">
-          <a href="/" title="moogle">
-            🎥oogle
-          </a>
+          <h1 className="logo">
+            <a href="/" title="moogle">
+              🎥oogle
+            </a>
+          </h1>
         </header>
         <main className="main-container">
           <Searchbar />
