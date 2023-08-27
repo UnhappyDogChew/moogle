@@ -70,7 +70,7 @@ export const Searchbar = () => {
     <div className={"main-searchbar" + (isFocused && query ? " active" : "")}>
       <div className="main-searchbar-top">
         <div className="main-searchbar-top-wrap">
-          <label for="search">
+          <label htmlFor="search">
             <i className="fa-solid fa-magnifying-glass"></i>
           </label>
           <input
