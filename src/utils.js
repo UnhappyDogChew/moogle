@@ -24,3 +24,17 @@ export const getMovies = (params, onSuccess, onError) => {
     .then(onSuccess)
     .catch(onError);
 };
+
+export const moveToSearchResult = ({
+  query,
+  language = "ko-KR",
+  includeAdult = false,
+  year,
+  page = 1,
+}) => {
+  const url =
+    `/search?query=${query}&language=${language}&include_adult=${includeAdult}` +
+    (year ? `&year=${year}` : "") +
+    `&page=${page}`;
+  window.location.href = url;
+};

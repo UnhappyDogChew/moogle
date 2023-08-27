@@ -2,7 +2,7 @@ import { SearchResultItem } from "../components/search/SearchResultItem";
 import { Searchbar } from "../components/search/Searchbar";
 import { SearchOptionBar } from "../components/search/SearchOptionBar";
 import { useEffect, useRef, useState } from "react";
-import { getMovies, parseSearch } from "../utils";
+import { getMovies, moveToSearchResult, parseSearch } from "../utils";
 
 export const SearchPage = () => {
   const [page, setPage] = useState(0);
@@ -52,11 +52,13 @@ export const SearchPage = () => {
   };
 
   const onEnter = () => {
-    const url =
-      `/search?query=${queryRef.current}&language=${languageRef.current}&include_adult=${includeAdultRef.current}` +
-      (yearRef.current ? `&year=${yearRef.current}` : "") +
-      `&page=1`;
-    window.location.href = url;
+    moveToSearchResult({
+      query: queryRef.current,
+      language: languageRef.current,
+      includeAdult: includeAdultRef.current,
+      year: yearRef.current,
+      page: 1,
+    });
   };
 
   const onPrevBtnClick = () => {

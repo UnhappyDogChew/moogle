@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { MovieItem } from "./MovieItem";
-import { getMovies } from "../../utils";
+import { getMovies, moveToSearchResult } from "../../utils";
 
 export const Searchbar = () => {
   const [query, setQuery] = useState("");
@@ -53,12 +53,16 @@ export const Searchbar = () => {
 
   const movieItemOnClick = (title) => {
     setQuery(title);
-    window.location.href = "/search";
+    moveToSearchResult({
+      query: title,
+    });
   };
 
   const searchbarOnKeyDown = (e) => {
     if (e.key === "Enter") {
-      window.location.href = "/search";
+      moveToSearchResult({
+        query: query,
+      });
     }
   };
 
